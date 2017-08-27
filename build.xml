@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<project name="FtpUpload" default="main">
+<!--   Include Properties file   -->
+<property file="build.properties" />
+<fileset dir="upload" id="TheFiles">
+  <include name="maker.php" />
+ </fileset>
+
+<phplint
+    haltonfailure="true"
+    deprecatedAsError="true" 
+>
+  <!-- <fileset dir="src">
+    <include name="**/*.php"/>
+  </fileset>
+   -->
+  <fileset dir=".">
+    <include name="maker.php"/>
+  </fileset>
+</phplint>
+
+<target name="upload_dev">
+    <ftpdeploy
+    host="${ftp.destination.host}"
+    port="${ftp.destination.port}"
+    username="${ftp.destination.username}"
+    password="${ftp.destination.password}"
+    dir="/dev-56.bildelspriser.dk/iot/"
+    passive="false"
+    mode="${ftp.destination.mode}">
+    <fileset dir=".">
+        <include name="*.php"/>
+        <include name=".htaccess"/>
+        <exclude name="phing"/>
+        <exclude name="vendor"/>
+        <exclude name="build.*"/>
+        <exclude name="images/**.png"/>
+        <exclude name="images/**.gif"/>
+        <exclude name="images/**.jpg"/>
+    </fileset>
+    </ftpdeploy>
+    <echo>Uploaded to http://dev-56.bildelspriser.dk/iot/ </echo>
+</target>
+
+<target name="upload_prod" >
+<ftpdeploy
+  host="${ftp.destination.host}"
+  port="${ftp.destination.port}"
+  username="${ftp.destination.username}"
+  password="${ftp.destination.password}"
+  dir="/bildelspriser.net/iot/"
+  passive="false"
+  mode="${ftp.destination.mode}">
+  <fileset dir=".">
+    <include name="*.php"/>
+    <exclude name="phing"/>
+    <exclude name="vendor"/>
+    <exclude name="build.*"/>
+    <exclude name="images/**.png"/>
+    <exclude name="images/**.gif"/>
+    <exclude name="images/**.jpg"/>
+  </fileset>
+</ftpdeploy>
+        <echo>Uploaded to http://php56.bildelspriser.dk/iot/ </echo>
+</target>
+<target name="main">
+    <echo>the main task</echo>
+</target>
+</project>
