@@ -6,6 +6,8 @@
   <include name="maker.php" />
  </fileset>
 
+<echo message="Always Lint"/>
+
 <phplint
     haltonfailure="true"
     deprecatedAsError="true" 
@@ -16,8 +18,14 @@
    -->
   <fileset dir=".">
     <include name="maker.php"/>
+    
+    <include name="*.php"/>
   </fileset>
 </phplint>
+
+<target name='local'>
+  <exec command="php -s localhost:6000" dir="." />
+</target> 
 
 <target name="upload_dev">
     <ftpdeploy

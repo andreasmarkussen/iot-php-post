@@ -20,6 +20,13 @@ go to your php home:
     php go-pear.phar  
     pear channel-update pear.php.net
     pear install Net_FTP
+    pear channel-discover pear.phing.info
+    pear install --alldeps phing/phing
+
+## in this folder
+Then install the right php packages
+
+   composer install
 
 
 # Testing
